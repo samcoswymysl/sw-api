@@ -1,11 +1,13 @@
 const express = require('express');
-const { getAllFilms } = require('../controllers/contactWithSWAPI/filmsController');
+const { getAllFilms, getOneFilm, getFilmByTitle } = require('../controllers/contactWithSWAPI/filmsController');
 
 const filmsRouter = express.Router();
 
 filmsRouter
-  .get('/:page?', getAllFilms);
+  .get('/page/:page?', getAllFilms)
+  .get('/title/:title', getFilmByTitle)
+  .get('/id/:id', getOneFilm);
 
 module.exports = {
   filmsRouter,
-}
+};
