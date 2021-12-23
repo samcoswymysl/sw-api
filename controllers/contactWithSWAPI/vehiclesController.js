@@ -4,9 +4,9 @@ const getAllVehicles = async (req, res, next) => {
   const page = req.params.page || 1;
 
   try {
-    const allSpecies = await swapiModule.getVehicles({ page });
+    const allVehicles = await swapiModule.getVehicles({ page });
 
-    res.json(allSpecies);
+    res.json(allVehicles);
   } catch (e) {
     next(e);
   }
@@ -15,9 +15,9 @@ const getAllVehicles = async (req, res, next) => {
 const getOneVehicle = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const oneSpecies = await swapiModule.getVehicle(id);
+    const oneVehicle = await swapiModule.getVehicle(id);
 
-    res.json(oneSpecies);
+    res.json(oneVehicle);
   } catch (e) {
     next(e);
   }
@@ -26,14 +26,14 @@ const getOneVehicle = async (req, res, next) => {
 const getVehiclesByName = async (req, res, next) => {
   const { name } = req.params;
   try {
-    const speciesByName = await swapiModule.getVehicles({ search: name });
+    const vehicleByName = await swapiModule.getVehicles({ search: name });
 
-    if (!speciesByName.results.length) {
+    if (!vehicleByName.results.length) {
       res.json('Any results');
       return;
     }
 
-    res.json(speciesByName);
+    res.json(vehicleByName);
   } catch (e) {
     next(e);
   }

@@ -13,6 +13,7 @@ const { logoutRouter } = require('./routes/loguotRouter');
 const { filmsRouter } = require('./routes/filmsRouter');
 const {speciesRouter} = require("./routes/speciesRouter");
 const {vehiclesRouter} = require("./routes/vehiclesRouter");
+const {starshipsRouter} = require("./routes/starshipsRouter");
 
 const app = express.Router();
 
@@ -25,6 +26,7 @@ app.use('/logout', logoutRouter);
 app.use('/films', filmsRouter);
 app.use('/species', speciesRouter);
 app.use('/vehicles', vehiclesRouter)
+app.use('/starships', starshipsRouter)
 
 module.exports = {
   app,
