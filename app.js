@@ -4,10 +4,13 @@ const express = require('express');
 const loginController = require('./controllers/access/checkLoginDataController');
 const accessUser = require('./controllers/access/accessUserController');
 
-//  Register/login/logout/
+//  Require register/login/logout router
 const { registerRouter } = require('./routes/registerRouter');
 const { loginRouter } = require('./routes/loginRouter');
 const { logoutRouter } = require('./routes/loguotRouter');
+
+// import router to contact witch api
+const { filmsRouter } = require('./routes/filmsRouter');
 
 const app = express.Router();
 
@@ -16,8 +19,8 @@ app.use('/register', registerRouter);
 app.use('/login', loginController, loginRouter);
 app.use('/logout', logoutRouter);
 
-
-
+// Request to api
+app.use('/films', filmsRouter);
 
 module.exports = {
   app,

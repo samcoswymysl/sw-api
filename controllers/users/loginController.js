@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { NotFoundError, NotLoginError } = require('../../utils/errors');
+const { NotLoginError } = require('../../utils/errors');
 
 const loginUser = async (req, res, next) => {
   const { user } = req;
@@ -22,7 +22,7 @@ const loginUser = async (req, res, next) => {
       httpOnly: true,
       maxAge: 1000 * 60 * 60,
     });
-    res.json('cookie is set');
+    res.json('Login successful');
   } catch (e) {
     next(e);
   }
