@@ -12,6 +12,7 @@ const { logoutRouter } = require('./routes/loguotRouter');
 // import router to contact witch api
 const { filmsRouter } = require('./routes/filmsRouter');
 const {speciesRouter} = require("./routes/speciesRouter");
+const {vehiclesRouter} = require("./routes/vehiclesRouter");
 
 const app = express.Router();
 
@@ -23,6 +24,7 @@ app.use('/logout', logoutRouter);
 // Request to api
 app.use('/films', filmsRouter);
 app.use('/species', speciesRouter);
+app.use('/vehicles', vehiclesRouter)
 
 module.exports = {
   app,
