@@ -15,6 +15,7 @@ const { speciesRouter } = require('./routes/speciesRouter');
 const { vehiclesRouter } = require('./routes/vehiclesRouter');
 const { starshipsRouter } = require('./routes/starshipsRouter');
 const { planetsRouter } = require('./routes/planetsRouter');
+const { openingCrawlsDataRouter } = require('./routes/openingCrawlsDataRouter');
 
 const app = express.Router();
 
@@ -29,6 +30,7 @@ app.use('/species', speciesRouter);
 app.use('/vehicles', vehiclesRouter);
 app.use('/starships', starshipsRouter);
 app.use('/planets', planetsRouter);
+app.use('/crawls', openingCrawlsDataRouter);
 
 module.exports = {
   app,

@@ -21,6 +21,7 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "redis": "^4.0.1",
     "sequelize": "^6.12.2"
   },
   "devDependencies": {

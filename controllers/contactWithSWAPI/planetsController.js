@@ -1,10 +1,13 @@
 const { swapiModule } = require('../../utils/SWAPI-wrapper');
+const { client } = require('../../redis/redis');
 
 const getAllPlanets = async (req, res, next) => {
   const page = req.params.page || 1;
 
   try {
     const allPlanets = await swapiModule.getPlanets({ page });
+
+    await client.setEx(req.originalUrl, 60 * 60 * 24, JSON.stringify(allPlanet));
 
     res.json(allPlanets);
   } catch (e) {
@@ -14,9 +17,10 @@ const getAllPlanets = async (req, res, next) => {
 
 const getOnePlanet = async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   try {
     const onePlanet = await swapiModule.getPlanet(id);
+
+    await client.setEx(req.originalUrl, 60 * 60 * 24, JSON.stringify(onePlanet));
 
     res.json(onePlanet);
   } catch (e) {
@@ -29,10 +33,7 @@ const getOnePlanetByName = async (req, res, next) => {
   try {
     const planetByName = await swapiModule.getPlanets({ search: name });
 
-    if (!planetByName.results.length) {
-      res.json('Any results');
-      return;
-    }
+    await client.setEx(req.originalUrl, 60 * 60 * 24, JSON.stringify(planetByName));
 
     res.json(planetByName);
   } catch (e) {
