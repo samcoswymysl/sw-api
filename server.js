@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const redis = require('redis');
 const { sequelize } = require('./DB/models/index');
 
 // require routes
@@ -41,3 +40,10 @@ server.listen(PORT, 'localhost', async () => {
   await sequelize.authenticate();
   console.log('Connect with DB');
 });
+
+async function main() {
+  await sequelize.sync({ force: true });
+}
+
+// Create/Reset Data base
+// main();

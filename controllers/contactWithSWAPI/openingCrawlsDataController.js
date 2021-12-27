@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { swapiModule } = require('../../utils/SWAPI-wrapper');
 const { client } = require('../../redis/redis');
 
@@ -39,21 +38,28 @@ const occurrences = (string, subString, allowOverlapping) => {
   return n;
 };
 
+const getOpeningCrawlSetWitchCount = (allFilmsOpeningCrawlArray) => {
+  const xxx = allFilmsOpeningCrawlArray
+    .join(',')
+    .replace(/[.,!?]/g, '  ')
+    .replace(/(?:\\[rn]|[\r\n]+)+/g, '  ')
+    .trim()
+    .replace(/\s+/g, ' ' )
+    .toLowerCase()
+    .split(' ')
+    .reduce((hash, word) => {
+      hash[word] = hash[word] || 0;
+      hash[word]++;
+      return hash;
+    }, {});
+
+  return xxx;
+};
+
 const getUniqueWordsWitchCount = async (req, res, next) => {
   try {
     const allFilmsOpeningCrawlArray = await getOpeningCrawls();
-    const openingCrawlSetWitchCount = allFilmsOpeningCrawlArray
-      .join(',')
-      .replace(/[.,!?]/g, '')
-      .replace(/(?:\\[rn]|[\r\n]+)+/g, ' ')
-      .replace('  ', ' ')
-      .toLowerCase()
-      .split(' ')
-      .reduce((hash, word) => {
-        hash[word] = hash[word] || 0;
-        hash[word]++;
-        return hash;
-      }, {});
+    const openingCrawlSetWitchCount = getOpeningCrawlSetWitchCount(allFilmsOpeningCrawlArray);
 
     await client.setEx(req.originalUrl, 60 * 60 * 24, JSON.stringify(openingCrawlSetWitchCount));
 
@@ -91,4 +97,6 @@ const getMostPopularPersonInDescriptions = async (req, res, next) => {
 module.exports = {
   getUniqueWordsWitchCount,
   getMostPopularPersonInDescriptions,
+  getOpeningCrawlSetWitchCount,
 };
+

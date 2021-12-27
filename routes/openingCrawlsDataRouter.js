@@ -4,7 +4,7 @@ const { getUniqueWordsWitchCount, getMostPopularPersonInDescriptions } = require
 const openingCrawlsDataRouter = express.Router();
 
 openingCrawlsDataRouter
-  .get('/word/', getUniqueWordsWitchCount)
+  .get('/words', getUniqueWordsWitchCount)
   .get('/person', getMostPopularPersonInDescriptions);
 
 module.exports = {
