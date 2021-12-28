@@ -1,0 +1,36 @@
+version: "3.1"
+services:
+  app:
+    container_name: my-app
+    restart: always
+    build: .
+    ports:
+      - "80:5000"
+    links:
+      - db
+      - redis
+
+    environment:
+      "NODE_ENV": "development"
+      "REDIS_URL": "redis://cache"
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    volumes:
+      - ./data/db:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      "MYSQL_DATABASE": "devanddeliver"
+      "MYSQL_ROOT_PASSWORD": "password"
+  redis:
+    image: redis:alpine
+    container_name: cache
+    restart: always
+    hostname: redis-server
+    environment:
+      "ALLOW_EMPTY_PASSWORD": "yes"
+    ports:
+      - "6379:6379"

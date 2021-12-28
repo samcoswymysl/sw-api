@@ -14,7 +14,7 @@ const { passport } = require('./controllers/access/authorization');
 // requires
 const { handleError } = require('./middleware/handleError');
 const { setHeader } = require('./middleware/setHeaderFromCookie');
-const { checkCache } = require('./middleware/catcheMiddleware');
+
 
 // different variable
 
@@ -29,21 +29,20 @@ server.use(express.json());
 server.use(setHeader);
 
 // Router to the rest routers
-server.use('/', checkCache, app);
+server.use('/', app);
 
 // handle Errors
 server.use(handleError);
 
-server.listen(PORT, 'localhost', async () => {
-  console.log(`Server listen on http://localhost:${PORT}`);
+server.listen(PORT, async () => {
   // connect with database
   await sequelize.authenticate();
   console.log('Connect with DB');
 });
 
 async function main() {
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
 }
 
 // Create/Reset Data base
-// main();
+main();

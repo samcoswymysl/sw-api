@@ -44,7 +44,7 @@ const getOpeningCrawlSetWitchCount = (allFilmsOpeningCrawlArray) => {
     .replace(/[.,!?]/g, '  ')
     .replace(/(?:\\[rn]|[\r\n]+)+/g, '  ')
     .trim()
-    .replace(/\s+/g, ' ' )
+    .replace(/\s+/g, ' ')
     .toLowerCase()
     .split(' ')
     .reduce((hash, word) => {
@@ -99,4 +99,3 @@ module.exports = {
   getMostPopularPersonInDescriptions,
   getOpeningCrawlSetWitchCount,
 };
-
